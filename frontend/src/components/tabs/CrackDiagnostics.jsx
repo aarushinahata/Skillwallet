@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import axios from 'axios'
 import MetricCard from '../ui/MetricCard'
 import StatusPill from '../ui/StatusPill'
+import { apiUrl } from '../../api'
 
 const CRACK_TYPE_CONFIG = {
   'Hairline': { icon: '〰️', color: 'var(--clr-severity-low)', desc: 'Very fine cracks < 0.1mm width' },
@@ -74,13 +75,13 @@ export default function CrackDiagnostics() {
     try {
       const form = new FormData()
       form.append('file', file)
-      const res = await axios.post('/api/crack-analysis/analyze', form, {
+      const res = await axios.post(apiUrl('/api/crack-analysis/analyze'), form, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       setResult(res.data)
     } catch {
       try {
-        const res = await axios.get('/api/crack-analysis/demo')
+        const res = await axios.get(apiUrl('/api/crack-analysis/demo'))
         setResult(res.data)
       } catch {
         setError('Failed to analyze image. Please check backend connection.')
@@ -94,7 +95,7 @@ export default function CrackDiagnostics() {
     setLoading(true)
     setError(null)
     try {
-      const res = await axios.get('/api/crack-analysis/demo')
+      const res = await axios.get(apiUrl('/api/crack-analysis/demo'))
       setResult(res.data)
     } catch {
       setError('Backend not running. Please start the FastAPI server.')

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import MetricCard from '../ui/MetricCard'
+import { apiUrl } from '../../api'
 
 const STRUCTURE_TYPES = ['Residential', 'Commercial', 'Industrial', 'Mixed Use', 'Institutional']
 const LOCATION_TIERS = ['Tier 1', 'Tier 2', 'Tier 3']
@@ -45,7 +46,7 @@ export default function RealEstateValuation() {
         completion_percentage: parseFloat(form.completion_percentage),
         floors: parseInt(form.floors),
       }
-      const res = await axios.post('/api/valuation/calculate', payload)
+      const res = await axios.post(apiUrl('/api/valuation/calculate'), payload)
       setResult(res.data)
       // Trigger architectural render
       loadArchRender(res.data.architectural_prompt)

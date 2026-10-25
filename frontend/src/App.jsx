@@ -4,6 +4,7 @@ import PPESafety from './components/tabs/PPESafety'
 import CrackDiagnostics from './components/tabs/CrackDiagnostics'
 import RealEstateValuation from './components/tabs/RealEstateValuation'
 import WeatherAdvisory from './components/tabs/WeatherAdvisory'
+import { apiUrl } from './api'
 
 const TABS = [
   {
@@ -56,7 +57,7 @@ export default function App() {
 
   async function checkBackendHealth() {
     try {
-      const res = await fetch('/api/health')
+      const res = await fetch(apiUrl('/api/health'))
       if (res.ok) {
         const data = await res.json()
         setIsDemo(data.mode === 'demo')

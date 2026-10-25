@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
+import { apiUrl } from '../../api'
 
 const WEATHER_CONDITIONS = [
   { id: 'Normal', icon: '☀️', label: 'Normal', desc: 'Standard operations' },
@@ -57,7 +58,7 @@ export default function WeatherAdvisory() {
       const url = loc
         ? `/api/weather-advisory/advisory/${encodeURIComponent(condition)}?location=${encodeURIComponent(loc)}`
         : `/api/weather-advisory/advisory/${encodeURIComponent(condition)}`
-      const res = await axios.get(url)
+     const res = await axios.get(apiUrl(url))
       setAdvisory(res.data)
     } catch (err) {
       const detail = err.response?.data?.detail || 'Failed to retrieve weather advisory. Please check connection.'
@@ -104,7 +105,7 @@ export default function WeatherAdvisory() {
 
     try {
       const history = newMessages.slice(0, -1).map(m => ({ role: m.role, content: m.content }))
-      const res = await axios.post('/api/weather-advisory/chat', {
+      const res = await axios.post(apiUrl('/api/weather-advisory/chat'), {
         message: msg,
         history,
         weather_condition: weather,

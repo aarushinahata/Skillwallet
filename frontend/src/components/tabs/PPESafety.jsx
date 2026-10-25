@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import axios from 'axios'
 import MetricCard from '../ui/MetricCard'
 import StatusPill from '../ui/StatusPill'
+import { apiUrl } from '../../api'
 
 function ScoreRing({ score }) {
   const radius = 54
@@ -63,14 +64,14 @@ export default function PPESafety() {
     try {
       const form = new FormData()
       form.append('file', file)
-      const res = await axios.post('/api/ppe-safety/analyze', form, {
+      const res = await axios.post(apiUrl('/api/ppe-safety/analyze'), form, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       setResult(res.data)
     } catch {
       // Fallback to demo endpoint
       try {
-        const res = await axios.get('/api/ppe-safety/demo')
+        const res = await axios.get(apiUrl('/api/ppe-safety/demo'))
         setResult(res.data)
       } catch {
         setError('Failed to analyze image. Please check backend connection.')
