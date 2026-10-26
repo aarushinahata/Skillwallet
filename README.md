@@ -134,10 +134,10 @@ Skillwallet_project/
 ## 🌐 Deployment
 
 ### Streamlit Community Cloud
-1. Push code to GitHub
-2. Go to [share.streamlit.io](https://share.streamlit.io)
-3. Connect your repo, set `streamlit_app.py` as main file
-4. Add `GEMINI_API_KEY` in Secrets settings
+1. Go to [Streamlit Community Cloud](https://share.streamlit.io)
+2. Sign in with GitHub and select [aarushinahata/Skillwallet](https://github.com/aarushinahata/Skillwallet)
+3. Set `streamlit_app.py` as the app file
+4. Add `GEMINI_API_KEY` in Streamlit Secrets (optional; demo mode works without it)
 5. Deploy!
 
 ---
